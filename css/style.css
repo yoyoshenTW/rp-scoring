@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-bottom: 20px;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+select {
+    width: 100%;
+}
+button {
+    margin-top: 10px;
+}
+#result {
+    margin-top: 20px;
+}
+.threshold-exceeded {
+    background-color: #90EE90;
+}
