@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>RP-scoring Final 算分</title>
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+<body>
+    <h1>搖擺舞競賽 RP-scoring Final 算分</h1>
+    <p>免責聲明：此為測試版，要是你拿去用之後算錯了，跟我無關</p>
+    <p><a href="https://www.rp-scoring.com/what-is-relative-placement" target="_blank">What is relative placement | Relative Placement (rp-scoring.com)</a><br>
+    <a href="https://stepswing.com/index.php/rp-scoring/" target="_blank">看不懂搖擺舞比賽結果嗎？跟你介紹 RP-Scoring</a></p>
+    <div>
+        <button><a href="index.html">Back</a></button>
+    </div>
+    <h2>Final</h2>
+    <div>
+        <label for="contestants">參賽者數量：</label>
+        <input type="number" id="contestants" min="2" required>
+        
+        <label for="judges">評審數量：</label>
+        <input type="number" id="judges" min="2" required>
+        
+        <button onclick="generateTable()">生成表格</button>
+    </div>
+    <div id="tableContainer"></div>
+    <button onclick="calculateResults()" style="display:none;" id="calculateButton">計算結果</button>
+    <div id="result"></div>
+    <script src="js/final-script.js"></script>
+</body>
+</html>
