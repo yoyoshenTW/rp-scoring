@@ -3,26 +3,18 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>RP-scoring Final 算分</title>
+        <title>RP-scoring 算分系統</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
 <body>
-    <h1>搖擺舞競賽 RP-scoring Final 算分</h1>
+    <h1>搖擺舞競賽 RP-scoring 算分系統</h1>
     <p>免責聲明：此為測試版，要是你拿去用之後算錯了，跟我無關</p>
-    <p><a href="https://www.rp-scoring.com/what-is-relative-placement">What is relative placement | Relative Placement (rp-scoring.com)</a><br>
-    <a href="https://stepswing.com/index.php/2022/10/17/rp-scoring/">看不懂搖擺舞比賽結果嗎？跟你介紹 RP-Scoring</a></p>
+    <p><a href="https://www.rp-scoring.com/what-is-relative-placement" target="_blank">What is relative placement | Relative Placement (rp-scoring.com)</a><br>
+    <a href="https://stepswing.com/index.php/rp-scoring/" target="_blank">看不懂搖擺舞比賽結果嗎？跟你介紹 RP-Scoring</a></p>
+    <h2>請選擇你要計算的比賽</h2>
     <div>
-        <label for="contestants">參賽者數量：</label>
-        <input type="number" id="contestants" min="2" required>
-        
-        <label for="judges">評審數量：</label>
-        <input type="number" id="judges" min="2" required>
-        
-        <button onclick="generateTable()">生成表格</button>
+        <button><a href="prelim.html">Prelim</a></button>
+        <button><a href="final.html">Final</a></button>
     </div>
-    <div id="tableContainer"></div>
-    <button onclick="calculateResults()" style="display:none;" id="calculateButton">計算結果</button>
-    <div id="result"></div>
-    <script src="js/script.js"></script>
 </body>
 </html>

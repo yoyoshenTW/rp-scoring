@@ -22,10 +22,21 @@ select {
 }
 button {
     margin-top: 10px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+button:hover {
+    background-color: #45a049;
 }
 #result {
     margin-top: 20px;
 }
-.threshold-exceeded {
-    background-color: #90EE90;
+
+input[type="number"], input[type="text"] {
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
 }
