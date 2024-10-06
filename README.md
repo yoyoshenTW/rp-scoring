@@ -3,7 +3,7 @@
 以及原本介紹 [RP-Scoring](https://www.rp-scoring.com/)
 
 目前可以在網站內直接輸入分數，並且計算總分/
-歡迎大家來使用
+歡迎大家來使用 updateijJBFDF
 
 # 使用網站
 
