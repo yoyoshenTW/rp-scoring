@@ -2,33 +2,42 @@
 <html lang="zh-Hant">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>RP Scoring</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>RP Scoring 計算工具 2.0</h1>
-    <p>此版本為 RP Scoring 的 Web 版本，提供搖擺舞比賽的相對排名計算功能。<br>
-    目前測試下來應該沒有太大的問題，如果有人發現 bug 歡迎跟我說</p>
-    <i>
-      <a href="https://www.rp-scoring.com/what-is-relative-placement" target="_blank" rel="noopener noreferrer">
-        What is relative placement | Relative Placement</a><br>
-      <a href="https://stepswing.com/post/rp-scoring/" target="_blank" rel="noopener noreferrer">
-        看不懂搖擺舞比賽結果嗎？跟你介紹 RP-Scoring</a>
-    </i>
-    <div class="mode-switch">
-      <label>
-        <input type="radio" name="mode" value="prelim" checked>
-        Prelim
-      </label>
-      <label>
-        <input type="radio" name="mode" value="final">
-        Final
-      </label>
+  <div class="topbar">
+    <h1 class="topbar-title">RP Scoring System</h1>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="zh">中文</button>
+      <button class="lang-btn" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ko">한국어</button>
     </div>
-    <form id="rp-form"></form>
-    <div id="result"></div>
   </div>
+
+  <div class="container">
+    <div class="hero">
+      <p class="hero-desc"></p>
+      <div class="hero-links">
+        <a href="https://www.rp-scoring.com/what-is-relative-placement" target="_blank" rel="noopener noreferrer" data-i18n="link_original">What is Relative Placement</a>
+        <span style="color:#ccc">|</span>
+        <a href="https://stepswing.com/post/rp-scoring/" target="_blank" rel="noopener noreferrer" data-i18n="link_intro">看不懂搖擺舞比賽結果嗎？</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="mode-tabs">
+        <div class="mode-tab active" data-mode="prelim" data-i18n="tab_prelim">Prelim</div>
+        <div class="mode-tab" data-mode="final" data-i18n="tab_final">Final</div>
+      </div>
+
+      <div id="form-area"></div>
+    </div>
+
+    <div id="result-area"></div>
+  </div>
+
   <script src="js/script.js"></script>
 </body>
 </html>
