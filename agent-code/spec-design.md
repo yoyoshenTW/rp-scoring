@@ -117,6 +117,68 @@ firstOver[ci] = 第一個 accum[ci][k] >= overHalf 的 k 值
 - `first-majority` class：第一次達到過半數的累積欄（黃底）
 
 ---
+### Final 圖像辨識自動產生評分表
+
+#### 介面
+-   在 `Final` 頁籤中，新增一個 “自動偵測產生評分表” 按鈕
+-   點擊按鈕後，會跳出一個可以上傳多張圖片的介面
+-   在上傳圖片之後，介面會顯示等待回覆的訊息
+
+#### n8n Webhook 整合
+-   **Request**:
+    -   Method: `POST`
+    -   Endpoint: (TBD, provided by user)
+    -   Body: `FormData` with multiple image files.
+-   **Response**:
+    -   Format: JSON
+    -   Example:
+        ```json
+        [
+            {
+                "judge": 3,
+                "competitor": 6,
+                "result": {
+                    "Willize": [
+                        6,
+                        4,
+                        2,
+                        5,
+                        1,
+                        3
+                    ],
+                    "SONGHI": [
+                        2,
+                        4,
+                        1,
+                        6,
+                        5,
+                        3
+                    ],
+                    "KD": [
+                        5,
+                        6,
+                        1,
+                        4,
+                        2,
+                        3
+                    ]
+                }
+            }
+        ]
+        ```
+#### 資料流
+1.  使用者點擊 “自動偵測產生評分表” 按鈕，並上傳圖片
+2.  前端發送 POST request 到 n8n webhook
+3.  前端顯示 loading 狀態，直到收到 n8n 回應
+4.  收到 JSON 回應後：
+    1.  讀取 `judge` 與 `competitor` 數量，並填入對應的 input
+    2.  動態生成評分表
+    3.  讀取 `result` 物件，將評審名稱 (`wendy`, `kevin`, etc.) 填入評審名稱的 input
+    4.  將各評審的評分陣列 (`[1,3,4,5,2]`, etc.) 填入對應的評分表格中
+5.  使用者可以再次編輯表單，之後的操作與手動模式相同
+
+
+---
 
 ## 複製輸出格式
 
