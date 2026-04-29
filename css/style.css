@@ -411,9 +411,38 @@ select {
   font-size: 1rem;
   font-weight: 700;
   margin-top: 0;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-align: center;
   color: var(--text-muted);
+}
+
+.upload-note {
+  text-align: center;
+  margin: 0 0 12px 0;
+}
+
+.upload-note a {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.upload-note a:hover {
+  text-decoration: underline;
+}
+
+.upload-note-list {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding-left: 20px;
+  margin-top: 0;
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.upload-note-list li {
+  margin-bottom: 6px;
 }
 
 input[type="file"] {

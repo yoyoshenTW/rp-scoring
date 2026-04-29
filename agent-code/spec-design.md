@@ -47,6 +47,7 @@ rp-scoring/
 
 ### 4. UI 風格
 - CSS 變數統一顏色系統（`--primary`, `--bg`, `--card` 等）
+- 按鈕顏色對齊：確保所有主要操作按鈕的顏色維持一致（如使用統一的 primary color），以保持良好的 UI 一致性。
 - 卡片式佈局 (`card` class)，圓角 + 淺陰影
 - 無動畫效果（除 transition 0.15s），不增加手機負擔
 - 現代簡潔：灰底白卡，藍色主色調
@@ -117,11 +118,16 @@ firstOver[ci] = 第一個 accum[ci][k] >= overHalf 的 k 值
 - `first-majority` class：第一次達到過半數的累積欄（黃底）
 
 ---
-### Final 圖像辨識自動產生評分表
+### AI 圖像辨識
 
 #### 介面
--   在 `Final` 頁籤中，新增一個 “自動偵測產生評分表” 按鈕
+-   在 `Final` 頁籤中，新增一個 “AI 圖像辨識” 按鈕（多國語系：EN: "AI Image Recognition", KO: "AI 이미지 인식", ZH-TW: "AI 圖像辨識"）
 -   點擊按鈕後，會跳出一個可以上傳多張圖片的介面
+-   在圖片上傳介面中，新增：
+    -   **Template 下載連結**：提供標準評分表範本供使用者下載（URL: `https://img.swingyoyo.com/rp-scoring-final-template.pdf`）。
+    -   **注意事項說明**：
+        - "建議上傳全英文且畫質清晰的圖檔，以提高辨識準確度。"
+        - "表格中請確保「評審名稱 (Judge)」、「參賽者順序 (No.)」與「名次 (Rank)」清晰可見。參賽者姓名為選填項目，不影響成績計算。"
 -   在上傳圖片之後，介面會顯示等待回覆的訊息
 
 #### n8n Webhook 整合
@@ -167,7 +173,7 @@ firstOver[ci] = 第一個 accum[ci][k] >= overHalf 的 k 值
         ]
         ```
 #### 資料流
-1.  使用者點擊 “自動偵測產生評分表” 按鈕，並上傳圖片
+1.  使用者點擊 “AI 圖像辨識” 按鈕，並上傳圖片
 2.  前端發送 POST request 到 n8n webhook
 3.  前端顯示 loading 狀態，直到收到 n8n 回應
 4.  收到 JSON 回應後：
