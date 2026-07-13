@@ -41,15 +41,6 @@ const I18N = {
     err_empty: '評審 {j} 的參賽者「{c}」未填寫名次',
     err_range: '評審 {j} 的參賽者「{c}」名次超過範圍 (1~{n})，目前為 {val}',
     err_dup_rank: '評審 {j} 對「{list}」給了相同名次 {val}',
-
-    auto_generate_title: 'AI 圖像辨識',
-    upload_label: '上傳評分表照片（可多選）',
-    start_recognition: '開始辨識',
-    recognition_loading: '辨識中，請稍候...',
-    recognition_error: '辨識失敗，請手動輸入。',
-    template_link: '下載評分表範本',
-    upload_note_1: '建議上傳全英文且畫質清晰的圖檔，以提高辨識準確度。',
-    upload_note_2: '表格中請確保「評審名稱 (Judge)」、「參賽者順序 (No.)」與「名次 (Rank)」清晰可見。參賽者姓名為選填項目，不影響成績計算。',
   },
 
   en: {
@@ -92,15 +83,6 @@ const I18N = {
     err_empty: 'Judge {j}: missing score for contestant "{c}"',
     err_range: 'Judge {j}: score for "{c}" out of range (1~{n}), got {val}',
     err_dup_rank: 'Judge {j}: duplicate rank {val} for "{list}"',
-
-    auto_generate_title: 'AI Image Recognition',
-    upload_label: 'Upload Score Sheet Photos (multiple selection)',
-    start_recognition: 'Start Recognition',
-    recognition_loading: 'Recognizing, please wait...',
-    recognition_error: 'Recognition failed. Please enter manually.',
-    template_link: 'Download Score Sheet Template',
-    upload_note_1: 'It is recommended to upload clear, English-only images to improve recognition accuracy.',
-    upload_note_2: 'Please ensure "Judge", "No.", and "Rank" are clearly visible. Contestant names are optional and do not affect the calculation.',
   },
 
   ko: {
@@ -143,15 +125,6 @@ const I18N = {
     err_empty: '심사위원 {j}: 참가자 "{c}" 점수 미입력',
     err_range: '심사위원 {j}: 참가자 "{c}" 순위가 범위(1~{n})를 벗어남, 현재 {val}',
     err_dup_rank: '심사위원 {j}: "{list}"에게 같은 순위 {val} 부여',
-
-    auto_generate_title: 'AI 이미지 인식',
-    upload_label: '채점표 사진 업로드 (다중 선택 가능)',
-    start_recognition: '인식 시작',
-    recognition_loading: '인식 중입니다. 잠시만 기다려 주세요...',
-    recognition_error: '인식에 실패했습니다. 수동으로 입력해 주세요.',
-    template_link: '채점표 템플릿 다운로드',
-    upload_note_1: '인식 정확도를 높이려면 화질이 선명한 영문 이미지를 업로드하는 것을 권장합니다.',
-    upload_note_2: '표에 "심사위원(Judge)", "참가자 순서(No.)" 및 "순위(Rank)"가 명확하게 보이도록 해주세요. 참가자 이름은 선택 사항이며 성적 계산에 영향을 주지 않습니다.',
   }
 };
 
@@ -442,114 +415,21 @@ function detectBattlePairs(sorted, contestantCount, judgeCount, overHalf) {
 function renderFinalForm() {
   const area = document.getElementById('form-area');
   area.innerHTML = `
-    <div class="final-form-container">
-      <div class="manual-entry">
-        <div class="form-row">
-          <div class="form-group">
-            <label>${t('judge_count')}</label>
-            <input type="number" id="f-judge-count" min="1" max="15" value="5">
-          </div>
-          <div class="form-group">
-            <label>${t('contestant_count')}</label>
-            <input type="number" id="f-contestant-count" min="2" max="20" value="5">
-          </div>
-        </div>
-        <button class="btn btn-primary" id="f-gen-btn">${t('generate_final')}</button>
+    <div class="form-row">
+      <div class="form-group">
+        <label>${t('judge_count')}</label>
+        <input type="number" id="f-judge-count" min="1" max="15" value="5">
       </div>
-      <div class="divider-or">OR</div>
-      <div class="auto-entry">
-        <h3 class="auto-entry-title">${t('auto_generate_title')} <sup>beta</sup></h3>
-        <p class="upload-note">
-          <a href="https://img.swingyoyo.com/rp-scoring-final-template.pdf" target="_blank" rel="noopener noreferrer">${t('template_link')}</a>
-        </p>
-        <ul class="upload-note-list">
-          <li>${t('upload_note_1')}</li>
-          <li>${t('upload_note_2')}</li>
-        </ul>
-        <div class="form-group">
-          <label for="f-file-upload">${t('upload_label')}</label>
-          <input type="file" id="f-file-upload" multiple accept="image/*">
-        </div>
-        <button class="btn btn-primary" id="f-upload-btn">${t('start_recognition')}</button>
-        <div id="f-upload-status" class="upload-status"></div>
+      <div class="form-group">
+        <label>${t('contestant_count')}</label>
+        <input type="number" id="f-contestant-count" min="2" max="20" value="5">
       </div>
     </div>
+    <button class="btn btn-primary" id="f-gen-btn">${t('generate_final')}</button>
     <div id="f-input-area"></div>
   `;
   document.getElementById('f-gen-btn').onclick = generateFinalTable;
-  document.getElementById('f-upload-btn').onclick = uploadFiles;
 }
-
-async function uploadFiles() {
-  const fileInput = document.getElementById('f-file-upload');
-  const files = fileInput.files;
-  const statusEl = document.getElementById('f-upload-status');
-  const webhookUrl = 'https://n8n.swingyoyo.com/webhook/7c1dc4e5-1959-4a71-8053-69b18e6d97ed';
-
-  if (files.length === 0) {
-    // Maybe show a message that no files are selected
-    return;
-  }
-
-  statusEl.textContent = t('recognition_loading');
-  statusEl.className = 'upload-status loading';
-
-  const formData = new FormData();
-  for (const file of files) {
-    formData.append('files', file);
-  }
-
-  try {
-    const response = await fetch(webhookUrl, {
-      method: 'POST',
-      body: formData,
-    });
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const responseData = await response.json();
-
-    const data = responseData[0];
-
-    // Populate the form with the received data
-    document.getElementById('f-judge-count').value = data.judge;
-    document.getElementById('f-contestant-count').value = data.competitor;
-
-    generateFinalTable();
-
-    // The table generation might take a moment, so we wait for the next frame
-    await new Promise(resolve => requestAnimationFrame(resolve));
-
-    const judgeNames = Object.keys(data.result);
-    judgeNames.forEach((name, ji) => {
-      const judgeNameInput = document.querySelector(`.f-judge-name[data-j="${ji}"]`);
-      if (judgeNameInput) {
-        judgeNameInput.value = name;
-      }
-    });
-
-    for (let ci = 0; ci < data.competitor; ci++) {
-      judgeNames.forEach((judgeName, ji) => {
-        const score = data.result[judgeName][ci];
-        const scoreInput = document.querySelector(`.f-score[data-c="${ci}"][data-j="${ji}"]`);
-        if (scoreInput) {
-          scoreInput.value = score;
-        }
-      });
-    }
-
-    statusEl.textContent = '';
-    statusEl.className = 'upload-status';
-
-  } catch (error) {
-    console.error('Error during file upload and recognition:', error);
-    statusEl.textContent = t('recognition_error');
-    statusEl.className = 'upload-status error';
-  }
-}
-
 
 function generateFinalTable() {
   const judgeCount = parseInt(document.getElementById('f-judge-count').value, 10);
