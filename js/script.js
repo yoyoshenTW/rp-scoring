@@ -1,4 +1,5 @@
 /* ── i18n ── */
+/* test updte */
 const I18N = {
   zh: {
     hero_desc: '搖擺舞比賽 RP 計分工具，支援 Prelim 預選賽與 Final 決賽計算。',
